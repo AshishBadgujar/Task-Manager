@@ -1,17 +1,13 @@
+import { GraphQLClient } from 'graphql-request';
 
-export async function graphClient(query, variables = {}) {
+const graphQLClient = new GraphQLClient('http://localhost:3000/api/graphql');
+
+export const graphClient = async (query, variables) => {
     try {
-        let res = await fetch('http://localhost:3000/api/graphql', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-                query,
-                variables,
-            }),
-            cache: 'no-store'
-        })
-        return await res.json()
+        const data = await graphQLClient.request(query, variables);
+        return data
     } catch (error) {
-        console.log(error)
+        console.error(error); // Handle any errors
     }
-}
+};
+

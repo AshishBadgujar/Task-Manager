@@ -4,7 +4,7 @@ import Form from './components/Form'
 import { graphClient } from '@/utils/graphqlClient'
 
 export default async function Home() {
-  const [{ data }] = await Promise.all([graphClient(GET_DATA)])
+  const [data] = await Promise.all([graphClient(GET_DATA)])
   console.log("data=", data)
   return (
     <>

@@ -1,4 +1,6 @@
-export const GET_DATA = `
+import { gql } from 'graphql-request';
+
+export const GET_DATA = gql`
 query GetAllTasks{
   tasks {
     id
@@ -8,7 +10,7 @@ query GetAllTasks{
   }
 }
 `
-export const CREATE_TASK = `
+export const CREATE_TASK = gql`
 mutation CreateTask($title: String!, $description: String!){
   createTask(title: $title, description: $description){
     id
@@ -18,7 +20,7 @@ mutation CreateTask($title: String!, $description: String!){
   }
 }
 `
-export const GET_TASK = `
+export const GET_TASK = gql`
 query GetTask($id:ID!){
   task(id:$id){
     id
@@ -29,7 +31,7 @@ query GetTask($id:ID!){
   }
 }
 `
-export const UPDATE_TASK = `
+export const UPDATE_TASK = gql`
 mutation UpdateTask($id: ID!, $completed: Boolean!) {
   updateTask(id: $id, completed: $completed) {
     id
@@ -39,7 +41,7 @@ mutation UpdateTask($id: ID!, $completed: Boolean!) {
   }
 }
 `
-export const DELETE_TASK = `
+export const DELETE_TASK = gql`
 mutation DeleteTask($id:ID!){
   deleteTask(id:$id)
 }
