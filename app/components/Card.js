@@ -1,16 +1,15 @@
 "use client"
 
-import { graphClient } from "@/utils/graphqlClient"
 import { DELETE_TASK, UPDATE_TASK } from "@/utils/query"
 import { useState } from "react"
 
 export default function Card({ task }) {
     const onComplete = async () => {
-        const [{ data }] = await Promise.all([graphClient(UPDATE_TASK, { id: task.id, completed: !task.completed })])
+        // const [{ data }] = await Promise.all([graphClient(UPDATE_TASK, { id: task.id, completed: !task.completed })])
     }
     const onDelete = async () => {
-        const [{ data }] = await Promise.all([graphClient(DELETE_TASK, { id: task.id })])
-        console.log(data)
+        // const [{ data }] = await Promise.all([graphClient(DELETE_TASK, { id: task.id })])
+        // console.log(data)
     }
     return (
         <div

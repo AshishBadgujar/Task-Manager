@@ -1,4 +1,4 @@
-import { gql } from 'graphql-request';
+import { gql } from "@apollo/client";
 
 export const GET_DATA = gql`
 query GetAllTasks{
@@ -27,7 +27,6 @@ query GetTask($id:ID!){
     title
     description
     completed
-    updatedAt
   }
 }
 `

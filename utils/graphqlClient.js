@@ -1,13 +1,15 @@
-import { GraphQLClient } from 'graphql-request';
+import { HttpLink } from "@apollo/client";
+import {
+    NextSSRInMemoryCache,
+    NextSSRApolloClient,
+} from "@apollo/experimental-nextjs-app-support/ssr";
+import { registerApolloClient } from "@apollo/experimental-nextjs-app-support/rsc";
 
-const graphQLClient = new GraphQLClient('http://localhost:3000/api/graphql');
-
-export const graphClient = async (query, variables) => {
-    try {
-        const data = await graphQLClient.request(query, variables);
-        return data
-    } catch (error) {
-        console.error(error); // Handle any errors
-    }
-};
-
+export const { getClient } = registerApolloClient(() => {
+    return new NextSSRApolloClient({
+        cache: new NextSSRInMemoryCache(),
+        link: new HttpLink({
+            uri: "http://localhost:3000/api/graphql",
+        }),
+    });
+});

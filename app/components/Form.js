@@ -1,5 +1,4 @@
 "use client"
-import { graphClient } from '@/utils/graphqlClient'
 import { CREATE_TASK } from '@/utils/query'
 import React, { useState } from 'react'
 
@@ -9,7 +8,7 @@ export default function Form() {
 
     const onSave = async (e) => {
         e.preventDefault()
-        const [{ data }] = await Promise.all([graphClient(CREATE_TASK, { title, description })])
+        // const [{ data }] = await Promise.all([graphClient(CREATE_TASK, { title, description })])
     }
     return (
         <div>

@@ -1,8 +1,5 @@
 import { createYoga, createSchema } from 'graphql-yoga'
-import connectDB from '../../../utils/db';
-import Task from '../../../models/Task';
-
-connectDB();
+import { readData } from '../../../utils/db';
 
 const schema = createSchema({
   typeDefs: `
@@ -11,7 +8,6 @@ const schema = createSchema({
     title: String!
     description: String!
     completed: Boolean!
-    updatedAt: String!
   }
 
   type Query {
@@ -27,25 +23,32 @@ const schema = createSchema({
   `,
   resolvers: {
     Query: {
-      tasks: () => Task.find(),
-      task: (_, { id }) => Task.findById(id)
+      tasks: async () => {
+        try {
+          let data = await readData()
+          return data.tasks
+        } catch (error) {
+          throw new Error(error.message);
+        }
+      },
+      task: (_, { id }) => { }
     },
     Mutation: {
-      createTask: (_, { title, description }) => {
-        const task = new Task({ title, description });
-        return task.save();
+      createTask: (_, { id, title, description }) => {
+        // const task = ;
+        return {};
       },
       updateTask: async (_, { id, completed }) => {
-        const task = await Task.findById(id);
+        const task = {};
         if (!task) {
           throw new Error('Task not found');
         }
         task.completed = completed;
-        await task.save();
-        return task;
+        // await task.save();
+        return {};
       },
       deleteTask: async (_, { id }) => {
-        const task = await Task.findByIdAndDelete(id);
+        const task = {}
         if (!task) {
           throw new Error('Task not found');
         }

@@ -1,10 +1,12 @@
 import { GET_DATA } from '@/utils/query'
 import Card from './components/Card'
 import Form from './components/Form'
-import { graphClient } from '@/utils/graphqlClient'
+import { getClient } from '@/utils/graphqlClient'
+import { readData } from '../utils/db'
 
 export default async function Home() {
-  const [data] = await Promise.all([graphClient(GET_DATA)])
+  const client = getClient();
+  const { data } = await client.query({ query: GET_DATA });
   console.log("data=", data)
   return (
     <>
