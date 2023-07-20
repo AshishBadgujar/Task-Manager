@@ -1,10 +1,10 @@
 "use client";
 
-import { HttpLink, ApolloLink } from "@apollo/client";
+import { ApolloLink, HttpLink } from "@apollo/client";
 import {
-    NextSSRApolloClient,
     ApolloNextAppProvider,
     NextSSRInMemoryCache,
+    NextSSRApolloClient,
     SSRMultipartLink,
 } from "@apollo/experimental-nextjs-app-support/ssr";
 
