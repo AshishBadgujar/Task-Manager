@@ -1,15 +1,34 @@
 "use client"
 
 import { DELETE_TASK, UPDATE_TASK } from "@/utils/query"
-import { useState } from "react"
+import { useMutation } from "@apollo/client";
 
 export default function Card({ task }) {
+    const [updateTask] = useMutation(UPDATE_TASK, {
+        refetchQueries: [
+            'Tasks'
+        ]
+    })
+    const [deleteTask] = useMutation(DELETE_TASK, {
+        refetchQueries: [
+            'Tasks'
+        ]
+    })
     const onComplete = async () => {
-        // const [{ data }] = await Promise.all([graphClient(UPDATE_TASK, { id: task.id, completed: !task.completed })])
+        console.log("updating...")
+        updateTask({
+            variables: {
+                id: task.id,
+                completed: !task.completed
+            }
+        })
+
     }
     const onDelete = async () => {
-        // const [{ data }] = await Promise.all([graphClient(DELETE_TASK, { id: task.id })])
-        // console.log(data)
+        console.log("deleting...")
+        deleteTask({
+            variables: { id: task.id }
+        })
     }
     return (
         <div

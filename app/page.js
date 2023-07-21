@@ -2,21 +2,11 @@ import { GET_DATA } from '@/utils/query'
 import Card from './components/Card'
 import Form from './components/Form'
 import { getClient } from '@/utils/graphqlClient'
-import { readData } from '../utils/db'
-import { gql } from '@apollo/client'
 
-const query = gql`
-query Tasks {
-  tasks {
-    id
-    title
-    description
-    completed
-  }
-}
-`
 export default async function Home() {
-  const { data } = await getClient().query({ query: query });
+  const { data } = await getClient().query({
+    query: GET_DATA,
+  });
   console.log("data=", data)
 
   return (
@@ -25,7 +15,7 @@ export default async function Home() {
         <Form />
       </div>
       <div className="my-16 grid lg:mb-0 lg:grid-cols-3 lg:text-left">
-        {/* {data?.tasks?.map(item => <Card key={item.id} task={item} />)} */}
+        {data?.tasks?.map(item => <Card key={item.id} task={item} />)}
       </div>
     </>
   )

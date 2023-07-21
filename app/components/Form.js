@@ -1,15 +1,28 @@
 "use client"
 import { CREATE_TASK } from '@/utils/query'
-
+import { useMutation } from '@apollo/client'
 import React, { useState } from 'react'
 
 export default function Form() {
+    const [createTask] = useMutation(CREATE_TASK, {
+        refetchQueries: [
+            'Tasks'
+        ]
+    })
     const [title, setTitle] = useState('')
     const [description, setDescription] = useState('')
 
     const onSave = async (e) => {
+        console.log("saving...")
         e.preventDefault()
-        // const [{ data }] = await Promise.all([graphClient(CREATE_TASK, { title, description })])
+        createTask({
+            variables: {
+                title,
+                description
+            }
+        })
+        setTitle('')
+        setDescription('')
     }
     return (
         <div>
