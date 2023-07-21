@@ -1,12 +1,11 @@
+"use client"
 import { GET_DATA } from '@/utils/query'
 import Card from './components/Card'
 import Form from './components/Form'
-import { getClient } from '@/utils/graphqlClient'
+import { useSuspenseQuery } from '@apollo/experimental-nextjs-app-support/ssr'
 
-export default async function Home() {
-  const { data } = await getClient().query({
-    query: GET_DATA,
-  });
+export default function Home() {
+  const { data } = useSuspenseQuery(GET_DATA);
   console.log("data=", data)
 
   return (
