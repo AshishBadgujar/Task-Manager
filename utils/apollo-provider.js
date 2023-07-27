@@ -11,7 +11,8 @@ import {
     NextSSRApolloClient,
 } from "@apollo/experimental-nextjs-app-support/ssr";
 
-const GRAPHQL_ENDPOINT = `http://localhost:3000/api/graphql`;
+const GRAPHQL_ENDPOINT = process.env.NODE_ENV == "production" ? `https://task-manager-nine-tan.vercel.app/api/graphql` : "http://localhost:3000/api/graphql"
+
 
 function makeClient() {
     const httpLink = new HttpLink({
