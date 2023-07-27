@@ -1,17 +1,21 @@
 "use client";
-
-import { ApolloLink, HttpLink } from "@apollo/client";
+import {
+    ApolloLink,
+    HttpLink,
+    SuspenseCache,
+} from "@apollo/client";
 import {
     ApolloNextAppProvider,
     NextSSRInMemoryCache,
-    NextSSRApolloClient,
     SSRMultipartLink,
+    NextSSRApolloClient,
 } from "@apollo/experimental-nextjs-app-support/ssr";
+
+const GRAPHQL_ENDPOINT = `http://localhost:3000/api/graphql`;
 
 function makeClient() {
     const httpLink = new HttpLink({
-        uri: "http://localhost:3000/api/graphql",
-        fetchOptions: { cache: "no-store" },
+        uri: GRAPHQL_ENDPOINT,
     });
 
     return new NextSSRApolloClient({
@@ -19,6 +23,9 @@ function makeClient() {
         link:
             typeof window === "undefined"
                 ? ApolloLink.from([
+                    // in a SSR environment, if you use multipart features like
+                    // @defer, you need to decide how to handle these.
+                    // This strips all interfaces with a `@defer` directive from your queries.
                     new SSRMultipartLink({
                         stripDefer: true,
                     }),
@@ -28,9 +35,16 @@ function makeClient() {
     });
 }
 
+function makeSuspenseCache() {
+    return new SuspenseCache();
+}
+
 export function ApolloWrapper({ children }) {
     return (
-        <ApolloNextAppProvider makeClient={makeClient}>
+        <ApolloNextAppProvider
+            makeClient={makeClient}
+            makeSuspenseCache={makeSuspenseCache}
+        >
             {children}
         </ApolloNextAppProvider>
     );

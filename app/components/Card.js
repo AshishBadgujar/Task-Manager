@@ -1,7 +1,8 @@
 "use client"
-
 import { DELETE_TASK, UPDATE_TASK } from "@/utils/query"
 import { useMutation } from "@apollo/client";
+
+export const dynamic = "force-dynamic";
 
 export default function Card({ task }) {
     const [updateTask] = useMutation(UPDATE_TASK, {

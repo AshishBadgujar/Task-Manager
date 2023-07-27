@@ -3,6 +3,8 @@ import { CREATE_TASK } from '@/utils/query'
 import { useMutation } from '@apollo/client'
 import React, { useState } from 'react'
 
+export const dynamic = "force-dynamic";
+
 export default function Form() {
     const [createTask] = useMutation(CREATE_TASK, {
         refetchQueries: [

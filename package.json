@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "@apollo/client": "^3.8.0-rc.1",
-    "@apollo/experimental-nextjs-app-support": "^0.0.0-commit-7dad495",
+    "@apollo/experimental-nextjs-app-support": "^0.4.1",
     "@apollo/server": "^4.7.5",
     "@as-integrations/next": "^2.0.1",
     "autoprefixer": "10.4.14",
